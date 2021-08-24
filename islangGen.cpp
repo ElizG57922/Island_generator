@@ -45,7 +45,7 @@ string generateName();
 			cout<<"small";
 		}
 		else if(size == 1){
-			cout<<" medium sized";
+			cout<<"medium sized";
 		}
 		else{
 			cout<<"large";
