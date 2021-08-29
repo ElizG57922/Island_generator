@@ -7,6 +7,7 @@
 
 using namespace std;
 
+const int NUM_REGIONS = 4;
 
 int generateNumber(int low, int high);
 
@@ -15,6 +16,8 @@ char generateConsonant();
 char generateVowel();
 
 string generateName();
+
+void generateClimate(vector<string> &zones);
 
 
 	int main()
@@ -35,6 +38,16 @@ string generateName();
 		}
 		vector <string> civilizations (numCivilizations);
 		
+		vector <string> climates (NUM_REGIONS);
+		vector <string> directions (NUM_REGIONS);
+		
+		directions[0] = "north";
+		directions[1] = "east";
+		directions[2] = "south";
+		directions[3] = "west";
+		
+		generateClimate(climates);
+		
 		for(int i = 0; i < numCivilizations; i++){
 			civilizations[i] = generateName();
 		}
@@ -52,14 +65,56 @@ string generateName();
 		}
 		cout<<" island."<<endl;
 		
+		
+		for(int i = 0; i < NUM_REGIONS; i++){
+			cout<<"In the "<<directions[i]<<" it is "<<climates[i]<<"."<<endl;
+		}
+		
+		
 		cout<<numCivilizations<<" burgeoning civilizations call this place home. They are the:"<<endl;
 		for(int i = 0; i < numCivilizations; i++){
-			cout<<civilizations[i]<<endl;
+			cout<<civilizations[i]<<" of the "<<directions[generateNumber(0, NUM_REGIONS-1)]<<endl;
 		}
 		
 		cout<<"All this on the beautiful island."<<endl;
 	}
 
+    void generateClimate(vector<string> &zones){
+    	for(int i = 0; i < NUM_REGIONS; i++){
+    		switch(generateNumber(0, 8)){
+			case 0:
+				zones[i] = "cold";
+				break;
+			case 1:
+				zones[i] = "warm";
+				break;
+			case 2:
+		    	zones[i] = "wet";
+				break;
+			case 3:
+				zones[i] = "dry";
+				break;
+			case 4:
+				zones[i] = "windy";;
+				break;
+			case 5:
+		    	zones[i] = "temprate";
+				break;
+			case 6:
+				zones[i] = "chaotic";
+				break;
+			case 7:
+				zones[i] = "freezing";
+				break;
+			case 8:
+				zones[i] = "hot";
+				break;
+			default:
+				zones[i] = "forested";
+				break;
+	    	}
+	    }
+	}
 	
 	int generateNumber(int low, int high)
 	{
@@ -166,14 +221,14 @@ string generateName();
 		string name = "";
 		int nameLength = generateNumber(2, 5);
 		int vowelStart = generateNumber(0, 3); // 25% chance to start with a vowel
-		if (vowelStart == 3){
+		if (vowelStart == 0){
 			name += generateVowel();
 		}
 		for(int i = 0; i <nameLength; i++){
 		
 		    name += generateConsonant();
-		    int doubleConsonants = generateNumber(0, 1); // 50% chance to have a second consonant
-		    if(doubleConsonants == 1){
+		    int doubleConsonants = generateNumber(0, 9); // 10% chance to have a second consonant
+		    if(doubleConsonants == 0){
 		    	name += generateConsonant();
 			}
 			name += generateVowel();
